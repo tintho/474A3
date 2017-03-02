@@ -1,0 +1,118 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Video Game Sales</title>
+    <link rel="stylesheet" href="a3.css" charset="utf-8">
+  </head>
+  <body>
+  <!-- <button>Reset</button> -->
+    <h1>Video Game Sales</h1>
+    <div id="scatter"></div>
+    
+
+    
+    <!-- <input type="button" name="xAxis" value="xAxis"> -->
+    <div id="filters">
+      <select id='myselectform'>
+        <option value="all">All</option>
+        <option value="2600">Atari 2600.</option>
+        <option value="NES">Nintendo Entertainment System</option>
+        <option value="PC">PC</option>
+        <option value="DS">Nintendo DS</option>
+        <option value="GB">Nintendo Game Boy</option>
+        <option value="SNES">Super Nintendo Entertainment System</option>
+        <option value="GEN">Sega Genesis</option>
+        <option value="GG">Game Gear</option>
+        <option value="SCD">Sega CD</option>
+        <option value="NG">Neo Geo</option>
+        <option value="PS">PlayStation</option>
+        <option value="SAT">Saturn</option>
+        <option value="3DO">3DO</option>
+        <option value="TG16">TurboGrafx-16</option>
+        <option value="N64">Nintendo 64</option>
+        <option value="PCFX">PC-FX</option>
+        <option value="DC">Dreamcast</option>
+        <option value="WS">WonderSwan</option>
+        <option value="PS2">PlayStation 2</option>
+        <option value="XB">Xbox</option>
+        <option value="GBA">Nintendo Game Boy Advance</option>
+        <option value="GC">Nintendo Game Cube</option>
+        <option value="PSP">PlayStation Portable</option>
+        <option value="X360">Xbox 360</option>
+        <option value="Wii">Wii</option>
+        <option value="PS3">PlayStation 3</option>
+        <option value="3DS">Nintendo 3DS</option>
+        <option value="PSV">PlayStation Vita</option>
+        <option value="WiiU">Nintendo WiiU</option>
+        <option value="PS4">PlayStation 4</option>
+        <option value="XOne">Xbox One</option>
+      </select>
+    </div>
+    <!--<div id ="controls" style="display: inline-block">
+      <h2>Global Sales</h2>
+      <div id="globalSales" class="slider-range"></div>
+      <input type="text" id="globalSalesAmount">
+       readonly style="border:0; color:#f6931f; font-weight:bold;"
+     </div>--> 
+    <div id="tool" style="display: inline-block"></div>
+    <div id="bar"></div>
+    <div id="filters2">
+      <select id='myselectform2'>
+        <option value="Global_Sales" selected="selected">Global Sales</option>
+        <option value="NA_Sales">North America Sales</option>
+        <option value="EU_Sales">Europe Sales</option>
+        <option value="JP_Sales">Japan Sales</option>
+        <option value="Other_Sales" >Other Sales</option>
+      </select>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="d3.slider.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://d3js.org/d3-zoom.v1.min.js"></script>
+    <script src="a3.js" charset="utf-8"></script>
+    
+    <script>
+      var maxGlobalSales = 82.75;
+      var attributes = ["Global_Sales"];
+      var ranges = [[0, maxGlobalSales]];
+
+      $(function() {
+        $("#globalSales").slider({
+          range: true,
+          min: 0,
+          max: maxGlobalSales,
+          values:[0, maxGlobalSales],
+          slide: function(event, ui) {
+            $("#globalSalesAmount").val(ui.values[0] + " - " + ui.values[1]);
+            filterData("globalSales", ui.values); 
+          } 
+        });
+        $("#globalSalesAmount").val($("#globalSales").slider("values", 0) + " - " + $("#globalSales").slider("values", 1)); 
+      });
+
+      function filterData(attr, values){
+        for (i = 0; i < attributes.length; i++){
+          if (attr == attributes[i]){
+            ranges[i] = values;
+          }
+        }
+        var toVisualize = dataset.filter(function(d) { return isInRange(d)});
+        drawVis(toVisualize);
+      }
+
+      function isInRange(datum){
+      for (i = 0; i < attributes.length; i++){
+        if (datum[attributes[i]] < ranges[i][0] || datum[attributes[i]] > ranges[i][1]){
+          return false;
+        }
+      }
+      return true;
+      }
+    </script>
+    
+    
+  </body>
+</html>
+

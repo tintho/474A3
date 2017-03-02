@@ -1,0 +1,109 @@
+rect {
+  fill: transparent;
+  shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.1);
+  shape-rendering: crispEdges;
+}
+
+.axisLine {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: rgba(0, 0, 0, 0.5);
+  stroke-width: 2px;
+}
+
+.dot {
+  fill-opacity: .5;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.button input {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.scatter {
+  position: absolute;
+}
+
+.svg {
+  position: absolute;
+}
+.svg2 {
+  position: absolute;
+}
+
+/*#controls {
+  padding-right: 50px;
+  float:left;
+}
+*/
+#filters {
+  padding-top: 20px;
+  padding-left:600px;
+}
+
+#filters2 {
+  padding-top: 20px;
+  padding-left:650px;
+  padding-bottom:50px;
+}
+
+#tool {
+  align-self: center;
+  padding-top:20px;
+  /*padding-right:1300px;*/
+  padding-left:600px;
+}
+/*
+.tooltip {
+  padding-left:100px;
+}*/
+
+h1 {
+  padding-left:550px;
+  padding-top:20px;
+  font-size: 40px;
+}
+
+/*rect : hover{
+  fill:orange;
+}
+
+#bar {
+  fill:orange;
+}*/
