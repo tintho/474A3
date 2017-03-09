@@ -8,45 +8,93 @@
   <!-- <button>Reset</button> -->
     <h1>Video Game Sales</h1>
     <div id="scatter"></div>
-    
-
-    
-    <!-- <input type="button" name="xAxis" value="xAxis"> -->
-    <div id="filters">
-      <select id='myselectform'>
-        <option value="all">All</option>
-        <option value="2600">Atari 2600.</option>
-        <option value="NES">Nintendo Entertainment System</option>
-        <option value="PC">PC</option>
-        <option value="DS">Nintendo DS</option>
-        <option value="GB">Nintendo Game Boy</option>
-        <option value="SNES">Super Nintendo Entertainment System</option>
-        <option value="GEN">Sega Genesis</option>
-        <option value="GG">Game Gear</option>
-        <option value="SCD">Sega CD</option>
-        <option value="NG">Neo Geo</option>
-        <option value="PS">PlayStation</option>
-        <option value="SAT">Saturn</option>
-        <option value="3DO">3DO</option>
-        <option value="TG16">TurboGrafx-16</option>
-        <option value="N64">Nintendo 64</option>
-        <option value="PCFX">PC-FX</option>
-        <option value="DC">Dreamcast</option>
-        <option value="WS">WonderSwan</option>
-        <option value="PS2">PlayStation 2</option>
-        <option value="XB">Xbox</option>
-        <option value="GBA">Nintendo Game Boy Advance</option>
-        <option value="GC">Nintendo Game Cube</option>
-        <option value="PSP">PlayStation Portable</option>
-        <option value="X360">Xbox 360</option>
-        <option value="Wii">Wii</option>
-        <option value="PS3">PlayStation 3</option>
-        <option value="3DS">Nintendo 3DS</option>
-        <option value="PSV">PlayStation Vita</option>
-        <option value="WiiU">Nintendo WiiU</option>
-        <option value="PS4">PlayStation 4</option>
-        <option value="XOne">Xbox One</option>
-      </select>
+    <h3 id ="para">Filter by consoles below to view the lifecycles. Individual games are 
+    represented by dots placed on the year they were released (x-axis) and by 
+    the amount of money generated (y-axis)</h3>
+    <!-- <p>Select "All" on the first filter to view all consoles</p>
+    <p>Select "None" on the second filter to view only the console selected in the first filter</p> -->
+    <div id = "wrapper">
+	    <h3 id="barTitle" >Console 1</h3>
+	    <!-- <input type="button" name="xAxis" value="xAxis"> -->
+	    <div id="filters" >
+	      <select id='myselectform'>
+	        <option value="all">All</option>
+	        <option value="2600">Atari 2600.</option>
+	        <option value="NES">Nintendo Entertainment System</option>
+	        <option value="PC">PC</option>
+	        <option value="DS">Nintendo DS</option>
+	        <option value="GB">Nintendo Game Boy</option>
+	        <option value="SNES">Super Nintendo Entertainment System</option>
+	        <option value="GEN">Sega Genesis</option>
+	        <option value="GG">Game Gear</option>
+	        <option value="SCD">Sega CD</option>
+	        <option value="NG">Neo Geo</option>
+	        <option value="PS">PlayStation</option>
+	        <option value="SAT">Saturn</option>
+	        <option value="3DO">3DO</option>
+	        <option value="TG16">TurboGrafx-16</option>
+	        <option value="N64">Nintendo 64</option>
+	        <option value="PCFX">PC-FX</option>
+	        <option value="DC">Dreamcast</option>
+	        <option value="WS">WonderSwan</option>
+	        <option value="PS2">PlayStation 2</option>
+	        <option value="XB">Xbox</option>
+	        <option value="GBA">Nintendo Game Boy Advance</option>
+	        <option value="GC">Nintendo Game Cube</option>
+	        <option value="PSP">PlayStation Portable</option>
+	        <option value="X360">Xbox 360</option>
+	        <option value="Wii">Nintendo Wii</option>
+	        <option value="PS3">PlayStation 3</option>
+	        <option value="3DS">Nintendo 3DS</option>
+	        <option value="PSV">PlayStation Vita</option>
+	        <option value="WiiU">Nintendo WiiU</option>
+	        <option value="PS4">PlayStation 4</option>
+	        <option value="XOne">Xbox One</option>
+	      </select>
+	      <p id = "desc">Select "All" on the first filter to view all consoles</p>
+	    </div>
+    </div>
+   	<div id = "wrapper">
+	    <h3 id="barTitle" >Console 2</h3>
+	    <!-- <input type="button" name="xAxis" value="xAxis"> -->
+	    <div id="filters1" >
+	      <select id='myselectform1'>
+	      	<option value="none">None</option>
+	        <!-- <option value="all">All</option> -->
+	        <option value="2600">Atari 2600.</option>
+	        <option value="NES">Nintendo Entertainment System</option>
+	        <option value="PC">PC</option>
+	        <option value="DS">Nintendo DS</option>
+	        <option value="GB">Nintendo Game Boy</option>
+	        <option value="SNES">Super Nintendo Entertainment System</option>
+	        <option value="GEN">Sega Genesis</option>
+	        <option value="GG">Game Gear</option>
+	        <option value="SCD">Sega CD</option>
+	        <option value="NG">Neo Geo</option>
+	        <option value="PS">PlayStation</option>
+	        <option value="SAT">Saturn</option>
+	        <option value="3DO">3DO</option>
+	        <option value="TG16">TurboGrafx-16</option>
+	        <option value="N64">Nintendo 64</option>
+	        <option value="PCFX">PC-FX</option>
+	        <option value="DC">Dreamcast</option>
+	        <option value="WS">WonderSwan</option>
+	        <option value="PS2">PlayStation 2</option>
+	        <option value="XB">Xbox</option>
+	        <option value="GBA">Nintendo Game Boy Advance</option>
+	        <option value="GC">Nintendo Game Cube</option>
+	        <option value="PSP">PlayStation Portable</option>
+	        <option value="X360">Xbox 360</option>
+	        <option value="Wii">Nintendo Wii</option>
+	        <option value="PS3">PlayStation 3</option>
+	        <option value="3DS">Nintendo 3DS</option>
+	        <option value="PSV">PlayStation Vita</option>
+	        <option value="WiiU">Nintendo WiiU</option>
+	        <option value="PS4">PlayStation 4</option>
+	        <option value="XOne">Xbox One</option>
+	      </select>
+	    </div>
+	    <p id = "desc">Select "None" on the second filter to view only the console selected in the first filter</p>
     </div>
     <!--<div id ="controls" style="display: inline-block">
       <h2>Global Sales</h2>
@@ -56,15 +104,20 @@
      </div>--> 
     <div id="tool" style="display: inline-block"></div>
     <div id="bar"></div>
-    <div id="filters2">
-      <select id='myselectform2'>
-        <option value="Global_Sales" selected="selected">Global Sales</option>
-        <option value="NA_Sales">North America Sales</option>
-        <option value="EU_Sales">Europe Sales</option>
-        <option value="JP_Sales">Japan Sales</option>
-        <option value="Other_Sales" >Other Sales</option>
-      </select>
+    <h3 id ="para">Filter by region as well as by the consoles selected in View 1. Individual years will be represented by bars designating the amount of money those two (or one) consoles made in that year</h3>
+	<div>
+		<h3 id = "barTitle2">Region</h3>
+	    <div id="filters2">
+	      <select id='myselectform2'>
+	        <option value="Global_Sales" selected="selected">Global Sales</option>
+	        <option value="NA_Sales">North America Sales</option>
+	        <option value="EU_Sales">Europe Sales</option>
+	        <option value="JP_Sales">Japan Sales</option>
+	        <option value="Other_Sales" >Other Sales</option>
+	      </select>
+	    </div>
     </div>
+    
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>

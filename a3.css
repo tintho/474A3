@@ -72,15 +72,42 @@ rect {
   float:left;
 }
 */
+#barTitle {
+	display: inline-block;
+	padding-left: 400px;
+}
+
+#barTitle2 {
+	display: inline-block;
+	padding-left: 550px;
+}
+
+#desc{
+	padding-left:50px;
+	display:inline-block;
+}
+
 #filters {
   padding-top: 20px;
-  padding-left:600px;
+  padding-left:50px;
+  display: inline-block;
+}
+
+#filters1 {
+  padding-top: 10px;
+  padding-left:50px;
+  display: inline-block;
 }
 
 #filters2 {
   padding-top: 20px;
-  padding-left:650px;
+  padding-left:50px;
   padding-bottom:50px;
+  display: inline-block;
+}
+
+#para {
+	padding-left: 50px;
 }
 
 #tool {
@@ -88,6 +115,8 @@ rect {
   padding-top:20px;
   /*padding-right:1300px;*/
   padding-left:600px;
+  color:#FF0000;
+  font-size: 20px;
 }
 /*
 .tooltip {

@@ -18,9 +18,29 @@ var yValue = function(d) { return d.Global_Sales;}, // data -> value
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 // setup fill color
+// var d3_category31 = 
+// [0x2F329F, 0xaec7e8,
+//   0xff7f0e, 0xffbb78,
+//   0x2ca02c, 0x98df8a,
+//   0xd62728, 0xff9896,
+//   0x9467bd, 0xc5b0d5,
+//   0x8c564b, 0xc49c94,
+//   0xe377c2, 0xf7b6d2,
+//   0x7f7f7f, 0xc7c7c7,
+//   0xbcbd22, 0xdbdb8d,
+//   0x17becf, 0x9edae5, 0xc5b0d5,
+//   0x8c564b, 0xc49c94,
+//   0xe377c2, 0xf7b6d2,
+//   0x7f7f7f, 0xc7c7c7,
+//   0xbcbd22, 0xdbdb8d,
+//   0x17becf, 0x9edae5];
 var cValue = function(d) { return d.Platform;},
     color = d3.scale.category20();
 
+console.log("color "+ color);
+
+
+var csvdata;
 // var zoom = d3.behavior.zoom()
 //     .x(xScale)
 //     .y(yScale)
@@ -53,6 +73,7 @@ var tooltip = d3.select("#tool").append("div")
 var patt = new RegExp("all");
 var patt2 = new RegExp("Global_Sales");
 var dataset;
+var dataset1;
 
 var dropDown = d3.select("#filter")
 
@@ -67,7 +88,8 @@ d3.csv("vgsales2.csv", function(error, data) {
   });
 
   dataset = data;
-
+  dataset1 = data;
+  csvdata = data;
   // don't want dots overlapping axis, so add in buffer to data domain
   xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
   yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
@@ -111,6 +133,52 @@ d3.csv("vgsales2.csv", function(error, data) {
     }
   }
 
+  function filterType2(mtype) {
+    console.log("HELLO " + mtype);
+    var res = patt.test(mtype);
+    if(res){
+      drawVisSquares(dataset1);
+    }else{
+      var ndata = dataset1.filter(function(d) {
+        return d.Platform === mtype;
+      });
+    drawVisSquares(ndata);
+    }
+  }
+
+  function drawVisSquares(da) {
+    // draw dots
+    var triangle = svg.selectAll("ellipse").data(da);
+    triangle.exit().remove();
+    triangle.enter().append("ellipse")
+      .attr("class", "ellipse")
+      .attr("rx", 5)
+      .attr("ry", 5)
+
+      .on("mouseover", function(d) {
+          d3.select(this).attr("rx", 10);
+          d3.select(this).attr("ry", 10);
+          tooltip.transition()
+               .duration(200)
+               .ease("elastic")
+               .style("opacity", .9);
+          tooltip.html(d.Name +" (" + xValue(d) +  ") - " +d.Platform+ "<br/>Global Sales (Millions): " + yValue(d))
+               .style("left", (d3.event.pageX + 700) + "px")
+               .style("top", (d3.event.pageY - 28) + "px");
+               // .style("font-size",300%);
+      })
+      .on("mouseout", function(d) {
+          d3.select(this).attr("rx", 5);
+          d3.select(this).attr("ry", 5);
+          tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+      });
+    triangle.attr("cx", xMap)
+      .attr("cy", yMap)
+      .attr("id", function(d) { return d.Name })
+      .style("fill", function(d) { return color(cValue(d));}) 
+  }
 
   function drawVis(da) {
     // draw dots
@@ -118,7 +186,7 @@ d3.csv("vgsales2.csv", function(error, data) {
     circle.exit().remove();
     circle.enter().append("circle")
       .attr("class", "circles")
-      .attr("r", 3)
+      .attr("r", 5)
       
       .on("mouseover", function(d) {
           d3.select(this).attr("r", 10);
@@ -132,7 +200,7 @@ d3.csv("vgsales2.csv", function(error, data) {
                // .style("font-size",300%);
       })
       .on("mouseout", function(d) {
-          d3.select(this).attr("r", 3);
+          d3.select(this).attr("r", 5);
           tooltip.transition()
                .duration(500)
                .style("opacity", 0);
@@ -147,6 +215,12 @@ d3.csv("vgsales2.csv", function(error, data) {
   // d3.select("#myselectform").on("change", onChange);
   document.getElementById('myselectform').onchange = function() {
     filterType(this.value);
+    filterView2();
+  }
+
+  document.getElementById('myselectform1').onchange = function() {
+    filterType2(this.value);
+    filterView2();
   }
   // draw legend
   var legend = svg.selectAll(".legend")
@@ -193,6 +267,60 @@ var xAxis2 = d3.svg.axis().scale(x).orient("bottom");
 //   .orient("left")
 //   .ticks(10);
 
+function filterView2() {
+	selection = document.getElementById("dropdown");
+          var c1 = document.getElementById("myselectform");
+          var c2 = document.getElementById("myselectform1");
+          console.log(c1.value);
+          console.log(c2.value);
+          var datac1c2;
+          if(c1.value == "all" || c2.value == "all") {
+          	datac1c2 = csvdata;
+          } else {
+	          datac1c2 = csvdata.filter(function (row) {
+	          	return row.Platform== c1.value || row.Platform == c2.value;
+	          });
+	      }
+          console.log(datac1c2);
+          console.log(selection.value);
+          var data2 = d3.nest()
+          .key(function(d) { return d.Year})
+          .rollup(function(d) {
+            return d3.sum(d, function(g) { return g[selection.value]})
+          }).entries(datac1c2);
+
+    svg2.selectAll("rect")
+        .data(data2).exit().remove();
+    svg2.selectAll("rect")
+        .data(data2)
+      .enter().append("rect")
+        .style("fill", "steelblue")
+        .attr("x", function(d) {  return x(d.key); })
+        .attr("width", x.rangeBand())//x.rangeBand()
+        .attr("id", "bar")
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                 .duration(200)
+                 .style("opacity", .9);
+            tooltip.html("Year: " + d.key +  "<br/>" + "Sales (Millions of Units): " + (d.values))
+                 .style("left", (d3.event.pageX + 700) + "px")
+                 .style("top", (d3.event.pageY - 28) + "px")
+                 .attr("padding-left", "50px");// .style("font-size",300%);
+            d3.select(this).style("fill", "orange");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                 .duration(500)
+                 .style("opacity", 0);
+            d3.select(this).style("fill", "steelblue");
+        });
+    svg2.selectAll("rect")
+        .data(data2)
+        .attr("y", function(d) { return height-d.values; })
+        .attr("x", function(d) {  return x(d.key); })
+        .attr("height", function(d) { console.log("dvalue " +d.values); return (d.values); });
+}
+
 d3.csv("vgsales2.csv", function (error, csv_data) {
   var csvdata = csv_data;
   var data2 = d3.nest()
@@ -215,12 +343,25 @@ d3.csv("vgsales2.csv", function (error, csv_data) {
       .attr("id","dropdown")
       .on("change", function(d){
           selection = document.getElementById("dropdown");
+          var c1 = document.getElementById("myselectform");
+          var c2 = document.getElementById("myselectform1");
+          console.log(c1.value);
+          console.log(c2.value);
+          var datac1c2;
+          if(c1.value == "all" || c2.value == "all") {
+          	datac1c2 = csvdata;
+          } else {
+	          datac1c2 = csvdata.filter(function (row) {
+	          	return row.Platform== c1.value || row.Platform == c2.value;
+	          });
+	      }
+          console.log(datac1c2);
           console.log(selection.value);
           data2 = d3.nest()
           .key(function(d) { return d.Year})
           .rollup(function(d) {
             return d3.sum(d, function(g) { return g[selection.value]})
-          }).entries(csvdata);
+          }).entries(datac1c2);
           drawvis2(data2);
       });
 
@@ -263,7 +404,7 @@ d3.csv("vgsales2.csv", function (error, csv_data) {
             tooltip.transition()
                  .duration(200)
                  .style("opacity", .9);
-            tooltip.html("Year: " + d.key +  "<br/>" + "Sales (Millions of Units): " + (d.values))
+            tooltip.html("Year: " + d.key +  "<br/>" + "Sales (Millions of Units): " + (d.values.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]))
                  .style("left", (d3.event.pageX + 700) + "px")
                  .style("top", (d3.event.pageY - 28) + "px")
                  .attr("padding-left", "50px");// .style("font-size",300%);
@@ -278,6 +419,7 @@ d3.csv("vgsales2.csv", function (error, csv_data) {
     svg2.selectAll("rect")
         .data(da2)
         .attr("y", function(d) { return height-d.values; })
+        .attr("x", function(d) {  return x(d.key); })
         .attr("height", function(d) { console.log("dvalue " +d.values); return (d.values); });
   }
   console.log(data2)
